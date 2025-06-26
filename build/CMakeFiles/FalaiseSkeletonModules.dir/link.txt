@@ -1,0 +1,1 @@
+/usr/bin/g++ -fPIC -shared -Wl,-soname,libFalaiseSkeletonModules.so -o libFalaiseSkeletonModules.so "CMakeFiles/FalaiseSkeletonModules.dir/falaise-skeleton-module-ptd.cc.o" 
