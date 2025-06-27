@@ -1,1 +1,0 @@
-/usr/bin/g++ -fPIC -L/pbs/software/redhat-9-x86_64/python/3.12.2/lib -shared -Wl,-soname,libFalaiseSkeletonModules.so -o libFalaiseSkeletonModules.so "CMakeFiles/FalaiseSkeletonModules.dir/falaise-skeleton-module-ptd.cc.o"
