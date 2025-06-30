@@ -67,6 +67,9 @@ falaise_skeleton_module_ptd::falaise_skeleton_module_ptd()
   tree->Branch("electron_number", &electron_number);
   tree->Branch("alpha_number", &alpha_number);
   tree->Branch("gamma_number", &gamma_number);
+  electron_number=0;
+  alpha_number=0;
+  gamma_number=0;
   
 }
 
@@ -93,9 +96,6 @@ void falaise_skeleton_module_ptd::initialize (const datatools::properties & modu
 
 dpp::chain_module::process_status falaise_skeleton_module_ptd::process (datatools::things & event)
 {
-  electron_number=0;
-  alpha_number=0;
-  gamma_number=0;
    // Retrieve the PTD bank
   const snemo::datamodel::particle_track_data & PTD = event.get<snemo::datamodel::particle_track_data>("PTD");
   //In PTD bank, things are stored in particles, you need to loop on it
