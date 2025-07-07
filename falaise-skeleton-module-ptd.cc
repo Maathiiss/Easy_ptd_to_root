@@ -40,12 +40,13 @@ public:
 
   // Event processing function
   dpp::chain_module::process_status process (datatools::things & event);
+
   
 private:
   int event_number, electron_number, alpha_number, gamma_number;
   TFile *save_file;
   TTree *tree;
-  
+  void reset_counters();  
   // Macro to register the module
   DPP_MODULE_REGISTRATION_INTERFACE(falaise_skeleton_module_ptd);
 
@@ -67,9 +68,6 @@ falaise_skeleton_module_ptd::falaise_skeleton_module_ptd()
   tree->Branch("electron_number", &electron_number);
   tree->Branch("alpha_number", &alpha_number);
   tree->Branch("gamma_number", &gamma_number);
-  electron_number=0;
-  alpha_number=0;
-  gamma_number=0;
   
 }
 
@@ -83,6 +81,13 @@ falaise_skeleton_module_ptd::~falaise_skeleton_module_ptd()
   std::cout << "falaise_skeleton_module_ptd::~falaise_skeleton_module_ptd() called" << std::endl;
 }
 
+void falaise_skeleton_module_ptd::reset_counters()
+{
+  electron_number = 0;
+  alpha_number = 0;
+  gamma_number = 0;
+}
+
 
 void falaise_skeleton_module_ptd::initialize (const datatools::properties & module_properties, datatools::service_manager &, dpp::module_handle_dict_type &)
 {
@@ -92,11 +97,12 @@ void falaise_skeleton_module_ptd::initialize (const datatools::properties & modu
   this->_set_initialized(true);
 }
 
-
+ 
 
 dpp::chain_module::process_status falaise_skeleton_module_ptd::process (datatools::things & event)
 {
-   // Retrieve the PTD bank
+  reset_counters();
+  // Retrieve the PTD bank
   const snemo::datamodel::particle_track_data & PTD = event.get<snemo::datamodel::particle_track_data>("PTD");
   //In PTD bank, things are stored in particles, you need to loop on it
   for (const datatools::handle<snemo::datamodel::particle_track> & particle : PTD.particles()){
